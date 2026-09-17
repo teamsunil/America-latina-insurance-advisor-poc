@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>America Latina Seguros — Asistente Virtual IA (POC)</title>
+<meta name="description" content="Prototipo de asistente virtual con IA para America Latina Seguros">
+<style>
+:root{
+  --blue-900:#0a2540;
+  --blue-800:#0d3a66;
+  --blue-700:#0f4c81;
+  --blue-600:#1567b0;
+  --blue-500:#1f7fd1;
+  --blue-100:#e8f2fc;
+  --blue-50:#f4f9fe;
+  --neutral-900:#1b2430;
+  --neutral-700:#465268;
+  --neutral-500:#748196;
+  --neutral-300:#cdd6e2;
+  --neutral-200:#e4e9f0;
+  --neutral-100:#f2f5f9;
+  --white:#ffffff;
+  --success:#1c8a5a;
+  --danger:#d64545;
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --shadow-sm:0 2px 8px rgba(10,37,64,0.08);
+  --shadow-md:0 8px 24px rgba(10,37,64,0.12);
+  --shadow-lg:0 16px 48px rgba(10,37,64,0.18);
+  --font:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font);
+  color:var(--neutral-900);
+  background:var(--blue-50);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:var(--white);
+  border-bottom:1px solid var(--neutral-200);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--blue-800);letter-spacing:-0.2px;}
+.brand-mark{
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue-600),var(--blue-800));
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:16px;flex:none;
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;}
+.brand-text small{font-weight:600;font-size:11px;color:var(--neutral-500);letter-spacing:0.6px;text-transform:uppercase;}
+.main-nav{display:flex;align-items:center;gap:26px;}
+.main-nav a{text-decoration:none;color:var(--neutral-700);font-weight:600;font-size:14.5px;padding:6px 2px;border-bottom:2px solid transparent;transition:.2s;}
+.main-nav a:hover{color:var(--blue-700);border-color:var(--blue-300,#9cc3e8);}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.lang-switch{
+  display:flex;border:1.5px solid var(--neutral-300);border-radius:999px;overflow:hidden;background:var(--neutral-100);
+}
+.lang-switch button{
+  border:none;background:transparent;padding:7px 14px;font-size:13px;font-weight:700;color:var(--neutral-500);transition:.2s;
+}
+.lang-switch button.active{background:var(--blue-700);color:#fff;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;
+  border:none;border-radius:999px;font-weight:700;font-size:14.5px;padding:11px 22px;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease; text-decoration:none;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--blue-700);color:#fff;box-shadow:var(--shadow-sm);}
+.btn-primary:hover{background:var(--blue-800);box-shadow:var(--shadow-md);}
+.btn-outline{background:#fff;color:var(--blue-700);border:1.5px solid var(--blue-600);}
+.btn-outline:hover{background:var(--blue-50);}
+.btn-ghost{background:transparent;color:var(--neutral-700);}
+.btn-ghost:hover{background:var(--neutral-100);}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:999px;}
+.btn-block{width:100%;}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:radial-gradient(1200px 500px at 80% -10%, var(--blue-100), transparent), linear-gradient(180deg,#fff, var(--blue-50));
+  padding:64px 0 56px;
+  border-bottom:1px solid var(--neutral-200);
+}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;background:var(--blue-100);color:var(--blue-700);
+  padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:700;margin-bottom:18px;
+}
+.hero h1{font-size:40px;line-height:1.15;margin:0 0 16px;color:var(--blue-900);letter-spacing:-0.5px;}
+.hero p{font-size:17px;color:var(--neutral-700);margin:0 0 26px;max-width:52ch;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.hero-art{
+  background:linear-gradient(160deg,var(--blue-700),var(--blue-900));
+  border-radius:var(--radius-lg);height:320px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+}
+.hero-art .glow{position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08);top:-60px;right:-60px;}
+.hero-art .glow2{position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06);bottom:-50px;left:-40px;}
+.hero-art .card-float{
+  position:absolute;background:rgba(255,255,255,.97);border-radius:var(--radius-md);padding:14px 16px;box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--blue-800);
+}
+.hero-art .card-float.c1{top:24px;left:24px;}
+.hero-art .card-float.c2{bottom:28px;right:26px;}
+.hero-art .card-float .icon{color:var(--blue-600);}
+
+/* ---------- Sections ---------- */
+.section{padding:60px 0;}
+.section-head{text-align:center;max-width:680px;margin:0 auto 38px;}
+.section-head h2{font-size:29px;color:var(--blue-900);margin:0 0 10px;letter-spacing:-0.3px;}
+.section-head p{color:var(--neutral-700);font-size:15.5px;margin:0;}
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+.cat-card{
+  background:#fff;border:1px solid var(--neutral-200);border-radius:var(--radius-lg);padding:24px;
+  display:flex;flex-direction:column;gap:12px;transition:.2s;
+}
+.cat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--blue-100);}
+.cat-icon{
+  width:52px;height:52px;border-radius:14px;background:var(--blue-100);color:var(--blue-700);
+  display:flex;align-items:center;justify-content:center;
+}
+.cat-card h3{margin:0;font-size:17.5px;color:var(--blue-900);}
+.cat-card p{margin:0;color:var(--neutral-700);font-size:14px;flex:1;}
+.cat-card .btn{align-self:flex-start;margin-top:4px;}
+
+.illustrative-note{
+  background:var(--blue-50);border:1px dashed var(--blue-300,#9cc3e8);border-radius:var(--radius-md);
+  padding:14px 18px;font-size:13px;color:var(--neutral-700);display:flex;gap:10px;align-items:flex-start;margin-top:28px;
+}
+.illustrative-note .icon{color:var(--blue-600);margin-top:1px;}
+
+/* ---------- Demo scenarios ---------- */
+.demo-section{background:#fff;border-top:1px solid var(--neutral-200);border-bottom:1px solid var(--neutral-200);}
+.demo-badge{
+  display:inline-flex;align-items:center;gap:8px;background:#fff3cd;color:#8a6300;border:1px solid #ffe08a;
+  padding:6px 14px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;
+}
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:28px;}
+.demo-card{
+  border:1px solid var(--neutral-200);border-radius:var(--radius-md);padding:20px;background:var(--neutral-100);
+  display:flex;flex-direction:column;gap:10px;
+}
+.demo-card h4{margin:0;font-size:15.5px;color:var(--blue-900);display:flex;align-items:center;gap:8px;}
+.demo-card p{margin:0;font-size:13.5px;color:var(--neutral-700);flex:1;}
+.demo-num{
+  width:26px;height:26px;border-radius:50%;background:var(--blue-700);color:#fff;font-size:12.5px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--blue-900);color:#dce6f2;padding:44px 0 26px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:30px;}
+.footer-grid h5{color:#fff;font-size:14.5px;margin:0 0 12px;}
+.footer-grid p, .footer-grid a{color:#b7c6db;font-size:13.5px;text-decoration:none;}
+.footer-grid ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+.footer-contact{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:12.5px;color:#9fb2cc;text-align:center;}
+.footer-disclaimer{background:rgba(255,255,255,.06);border-radius:var(--radius-sm);padding:14px 16px;font-size:12.5px;color:#cddbef;margin-bottom:22px;}
+
+/* ---------- Chat Widget ---------- */
+#chatToggleBtn{
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  width:64px;height:64px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,var(--blue-600),var(--blue-800));color:#fff;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease;
+}
+#chatToggleBtn:hover{transform:scale(1.06);}
+#chatToggleBtn .icon{width:28px;height:28px;}
+#chatToggleBtn .badge-dot{
+  position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;background:#ff4d4f;border:2px solid #fff;
+}
+
+#chatWindow{
+  position:fixed;bottom:24px;right:24px;z-index:210;
+  width:392px;max-width:calc(100vw - 32px);height:min(640px, calc(100vh - 48px));
+  background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;transform:translateY(24px) scale(.97);pointer-events:none;transition:.22s ease;
+}
+#chatWindow.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+#chatWindow.minimized .chat-body,#chatWindow.minimized .chat-input-area,#chatWindow.minimized .quick-replies-wrap{display:none;}
+#chatWindow.minimized{height:auto;}
+
+.chat-header{
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-900));color:#fff;
+  padding:14px 16px;display:flex;align-items:center;gap:10px;
+}
+.chat-header .avatar{
+  width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex:none;
+}
+.chat-header .info{flex:1;min-width:0;}
+.chat-header .info strong{display:block;font-size:14.5px;}
+.chat-header .info span{display:block;font-size:11.5px;color:#cfe0f5;}
+.chat-header .status-dot{width:8px;height:8px;border-radius:50%;background:#3fd17c;display:inline-block;margin-right:5px;}
+.chat-header-actions{display:flex;gap:4px;}
+.chat-header-actions button{
+  background:rgba(255,255,255,.12);border:none;color:#fff;width:30px;height:30px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;transition:.15s;
+}
+.chat-header-actions button:hover{background:rgba(255,255,255,.24);}
+.chat-header-actions .icon{width:16px;height:16px;}
+
+.demo-mode-strip{
+  background:#fff9e6;color:#8a6300;font-size:11px;font-weight:700;text-align:center;padding:5px 8px;border-bottom:1px solid #ffe9a8;
+  letter-spacing:.2px;
+}
+
+.chat-body{
+  flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--neutral-100);
+}
+.msg-row{display:flex;gap:8px;max-width:100%;}
+.msg-row.user{flex-direction:row-reverse;}
+.msg-avatar{
+  width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  background:var(--blue-100);color:var(--blue-700);
+}
+.msg-row.user .msg-avatar{background:var(--blue-700);color:#fff;}
+.msg-avatar .icon{width:15px;height:15px;}
+.bubble{
+  max-width:76%;padding:10px 14px;border-radius:16px;font-size:13.8px;white-space:pre-line;
+  box-shadow:0 1px 2px rgba(10,37,64,.06);
+}
+.msg-row.bot .bubble{background:#fff;color:var(--neutral-900);border-bottom-left-radius:4px;}
+.msg-row.user .bubble{background:var(--blue-700);color:#fff;border-bottom-right-radius:4px;}
+.msg-time{font-size:10px;color:var(--neutral-500);margin-top:3px;}
+.msg-row.user .msg-time{text-align:right;}
+
+.typing-row .bubble{display:flex;align-items:center;gap:4px;padding:12px 16px;}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--neutral-500);animation:typingBlink 1.2s infinite ease-in-out;}
+.typing-dot:nth-child(2){animation-delay:.2s;}
+.typing-dot:nth-child(3){animation-delay:.4s;}
+@keyframes typingBlink{0%,80%,100%{opacity:.25;}40%{opacity:1;}}
+
+.quick-replies-wrap{padding:10px 14px;border-top:1px solid var(--neutral-200);background:#fff;}
+.quick-replies-label{font-size:11px;color:var(--neutral-500);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.quick-replies{display:flex;flex-wrap:wrap;gap:8px;}
+.qr-btn{
+  border:1.5px solid var(--blue-500);background:#fff;color:var(--blue-700);border-radius:999px;
+  padding:8px 14px;font-size:12.8px;font-weight:700;transition:.15s;
+}
+.qr-btn:hover{background:var(--blue-700);color:#fff;}
+.qr-btn.subtle{border-color:var(--neutral-300);color:var(--neutral-700);}
+.qr-btn.subtle:hover{background:var(--neutral-200);color:var(--neutral-900);}
+.qr-btn.advisor{border-color:#c98a1c;color:#8a5c00;}
+.qr-btn.advisor:hover{background:#c98a1c;color:#fff;}
+.qr-btn.action{border-color:var(--success);color:var(--success);}
+.qr-btn.action:hover{background:var(--success);color:#fff;}
+
+.chat-input-area{display:flex;gap:8px;padding:12px;border-top:1px solid var(--neutral-200);background:#fff;}
+.chat-input-area input{
+  flex:1;border:1.5px solid var(--neutral-300);border-radius:999px;padding:11px 16px;font-size:13.8px;outline:none;transition:.15s;
+}
+.chat-input-area input:focus{border-color:var(--blue-600);}
+.send-btn{
+  width:42px;height:42px;border-radius:50%;border:none;background:var(--blue-700);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;
+}
+.send-btn:hover{background:var(--blue-800);}
+.send-btn .icon{width:18px;height:18px;}
+
+/* ---------- Modals ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(10,20,35,.5);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:#fff;border-radius:var(--radius-lg);max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--neutral-200);}
+.modal-head h3{margin:0;font-size:18px;color:var(--blue-900);}
+.modal-head button{background:var(--neutral-100);border:none;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.modal-body{padding:22px;}
+.form-row{margin-bottom:16px;}
+.form-row label{display:block;font-size:13px;font-weight:700;color:var(--neutral-700);margin-bottom:6px;}
+.form-row .req{color:var(--danger);}
+.form-row input[type=text],.form-row input[type=email],.form-row input[type=tel],.form-row select,.form-row textarea{
+  width:100%;border:1.5px solid var(--neutral-300);border-radius:var(--radius-sm);padding:10px 12px;font-size:13.8px;font-family:inherit;outline:none;transition:.15s;
+}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--blue-600);}
+.form-row textarea{resize:vertical;min-height:70px;}
+.form-error{color:var(--danger);font-size:12px;margin-top:5px;display:none;}
+.form-row.invalid input,.form-row.invalid textarea,.form-row.invalid select{border-color:var(--danger);}
+.form-row.invalid .form-error{display:block;}
+.checkbox-row{display:flex;align-items:flex-start;gap:8px;}
+.checkbox-row input{margin-top:3px;}
+.checkbox-row label{margin:0;font-weight:500;font-size:13px;color:var(--neutral-700);}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;}
+
+.summary-box{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--radius-md);padding:14px 16px;font-size:13.3px;color:var(--neutral-700);margin-bottom:18px;white-space:pre-line;}
+.contact-box{display:flex;flex-direction:column;gap:10px;background:var(--neutral-100);border-radius:var(--radius-md);padding:16px;margin-bottom:18px;}
+.contact-line{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--blue-800);}
+.contact-line .icon{color:var(--blue-600);}
+
+.confirm-panel{text-align:center;padding:10px 4px 4px;}
+.confirm-panel .icon-wrap{
+  width:64px;height:64px;border-radius:50%;background:#e6f6ed;color:var(--success);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.confirm-panel .icon-wrap .icon{width:32px;height:32px;}
+.confirm-panel p{color:var(--neutral-700);font-size:14px;}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-art{height:220px;order:-1;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .main-nav{display:none;}
+}
+@media (max-width:560px){
+  .footer-grid{grid-template-columns:1fr;}
+  #chatWindow{right:16px;bottom:16px;width:calc(100vw - 32px);height:min(72vh, 620px);}
+  #chatToggleBtn{right:16px;bottom:16px;}
+  .hero h1{font-size:30px;}
+  .section{padding:44px 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-inner container">
+    <div class="brand">
+      <div class="brand-mark">ALS</div>
+      <div class="brand-text">
+        <span>America Latina Seguros</span>
+        <small data-i18n="brand_tagline">Correduría de Seguros</small>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="#categories" data-i18n="nav_products">Seguros</a>
+      <a href="#demo" data-i18n="nav_demo">Demostración</a>
+      <a href="#footer-contact" data-i18n="nav_contact">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button type="button" id="langEsBtn" onclick="setLanguage('es')">ES</button>
+        <button type="button" id="langEnBtn" class="active" onclick="setLanguage('en')">EN</button>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" onclick="openChat()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+        <span data-i18n="nav_talk_assistant">Hablar con el asistente</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <span class="hero-badge">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px;"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+        <span data-i18n="hero_badge">Prototipo con Inteligencia Artificial</span>
+      </span>
+      <h1 data-i18n="hero_title">Encuentra el seguro adecuado con la ayuda de un asistente virtual</h1>
+      <p data-i18n="hero_subtitle">America Latina Seguros te acompaña a entender tus opciones de protección médica, de vida, auto, hogar, viaje y negocio — y a conectarte con un asesor humano cuando lo necesites.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary" onclick="openChat()">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+          <span data-i18n="hero_cta_primary">Iniciar conversación</span>
+        </button>
+        <a href="#categories" class="btn btn-outline">
+          <span data-i18n="hero_cta_secondary">Explorar coberturas</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="glow"></div><div class="glow2"></div>
+      <div class="card-float c1">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-9C.6 8.5 3 4.5 7 4.5c2 0 3.5 1 5 2.8 1.5-1.8 3-2.8 5-2.8 4 0 6.4 4 4.5 7.5C19 16.65 12 21 12 21z"/></svg>
+        <span data-i18n="hero_float_1">Seguro de Vida</span>
+      </div>
+      <div class="card-float c2">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 13l1.5-5A2 2 0 0 1 6.4 6.5h11.2A2 2 0 0 1 19.5 8L21 13v6h-2v-2H5v2H3v-6z"/><circle cx="7" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/></svg>
+        <span data-i18n="hero_float_2">Seguro de Auto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <h2 data-i18n="categories_title">Explora nuestras coberturas</h2>
+      <p data-i18n="categories_subtitle">Selecciona una categoría para que nuestro asistente virtual te explique tus opciones y te haga algunas preguntas rápidas.</p>
+    </div>
+    <div class="cards-grid" id="categoriesGrid"></div>
+    <div class="illustrative-note">
+      <svg class="icon" viewBox="0 0 24 24" style="width:18px;height:18px;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16.2" r=".4"/></svg>
+      <span data-i18n="illustrative_note">La información mostrada es educativa e ilustrativa. Los nombres de planes, montos y condiciones específicas serán confirmados por un asesor autorizado.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEMO SCENARIOS ================= -->
+<section class="section demo-section" id="demo">
+  <div class="container">
+    <div class="section-head">
+      <span class="demo-badge">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px;"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+        <span data-i18n="demo_badge">Modo Demostración – Simulación de IA</span>
+      </span>
+      <h2 style="margin-top:14px;" data-i18n="demo_title">Escenarios de demostración</h2>
+      <p data-i18n="demo_subtitle">Haz clic en un escenario para ver cómo el asistente conduce automáticamente una conversación completa.</p>
+    </div>
+    <div class="demo-grid" id="demoGrid"></div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer" id="footer-contact">
+  <div class="container">
+    <div class="footer-disclaimer" data-i18n="footer_disclaimer">
+      Este sitio es un prototipo (POC) desarrollado con fines de demostración. El asistente virtual es una simulación de IA y no está conectado a sistemas reales de cotización, emisión de pólizas o comunicación con asesores.
+    </div>
+    <div class="footer-grid">
+      <div>
+        <h5>America Latina Seguros</h5>
+        <p data-i18n="footer_about">Correduría de seguros ayudando a personas y empresas a proteger lo que más valoran.</p>
+      </div>
+      <div>
+        <h5 data-i18n="footer_contact_title">Contacto</h5>
+        <div class="footer-contact"><svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2z"/></svg><span>+504 8953-7877</span></div>
+        <div class="footer-contact"><svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M4 4h16v16H4V4z"/><path d="M4 6l8 7 8-7"/></svg><span>info@americalatinaseguros.com</span></div>
+      </div>
+      <div>
+        <h5 data-i18n="footer_links_title">Enlaces</h5>
+        <ul>
+          <li><a href="#categories" data-i18n="nav_products">Seguros</a></li>
+          <li><a href="#demo" data-i18n="nav_demo">Demostración</a></li>
+          <li><a href="https://americalatinaseguros.com/" target="_blank" rel="noopener" data-i18n="footer_visit_site">Sitio web oficial</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" data-i18n="footer_rights">© 2026 America Latina Seguros. Prototipo interno — no representa un producto en producción.</div>
+  </div>
+</footer>
+
+<!-- ================= CHAT WIDGET ================= -->
+<button id="chatToggleBtn" onclick="toggleChat()" aria-label="Abrir asistente virtual">
+  <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+  <span class="badge-dot"></span>
+</button>
+
+<div id="chatWindow" role="dialog" aria-label="Asistente virtual">
+  <div class="chat-header">
+    <div class="avatar">
+      <svg class="icon" viewBox="0 0 24 24" style="width:20px;height:20px;color:#fff;"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M9 3v4M15 3v4"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/></svg>
+    </div>
+    <div class="info">
+      <strong data-i18n="chat_header_title">Asistente Virtual ALS</strong>
+      <span><span class="status-dot"></span><span data-i18n="chat_header_status">En línea (simulado)</span></span>
+    </div>
+    <div class="chat-header-actions">
+      <button type="button" onclick="restartConversation()" title="Reiniciar" aria-label="Reiniciar conversación">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 4v6h6"/><path d="M20 20v-6h-6"/><path d="M5.5 9A7 7 0 0 1 19 12M18.5 15A7 7 0 0 1 5 12"/></svg>
+      </button>
+      <button type="button" onclick="minimizeChat()" title="Minimizar" aria-label="Minimizar">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+      </button>
+      <button type="button" onclick="closeChat()" title="Cerrar" aria-label="Cerrar">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="demo-mode-strip" id="demoModeStrip" data-i18n="demo_mode_strip">MODO DEMOSTRACIÓN — SIMULACIÓN DE IA, SIN CONEXIÓN REAL</div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="quick-replies-wrap" id="quickRepliesWrap" style="display:none;">
+    <div class="quick-replies-label" data-i18n="quick_replies_label">Respuestas rápidas</div>
+    <div class="quick-replies" id="quickReplies"></div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" data-i18n-placeholder="chat_input_placeholder" placeholder="Escribe tu mensaje..." onkeydown="if(event.key==='Enter'){handleSendClick();}">
+    <button type="button" class="send-btn" onclick="handleSendClick()" aria-label="Enviar">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ================= LEAD FORM MODAL ================= -->
+<div class="modal-overlay" id="leadModalOverlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 data-i18n="lf_title">Solicitar una Cotización</h3>
+      <button type="button" onclick="closeLeadModal()" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="modal-body" id="leadModalBody">
+      <form id="leadForm" onsubmit="submitLeadForm(event)" novalidate>
+        <div class="form-row" id="lf_row_name">
+          <label data-i18n="lf_name">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="lf_name" autocomplete="name">
+          <div class="form-error" data-i18n="lf_error_required">Este campo es obligatorio.</div>
+        </div>
+        <div class="form-row" id="lf_row_email">
+          <label data-i18n="lf_email">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="lf_email" autocomplete="email">
+          <div class="form-error" data-i18n="lf_error_email">Ingresa un correo electrónico válido.</div>
+        </div>
+        <div class="form-row" id="lf_row_phone">
+          <label data-i18n="lf_phone">Teléfono <span class="req">*</span></label>
+          <input type="tel" id="lf_phone" autocomplete="tel">
+          <div class="form-error" data-i18n="lf_error_required">Este campo es obligatorio.</div>
+        </div>
+        <div class="form-row">
+          <label data-i18n="lf_category">Categoría de seguro</label>
+          <select id="lf_category"></select>
+        </div>
+        <div class="form-row">
+          <label data-i18n="lf_contact_method">Método de contacto preferido</label>
+          <select id="lf_contact_method">
+            <option value="email" data-i18n="contact_email">Correo electrónico</option>
+            <option value="phone" data-i18n="contact_phone">Llamada telefónica</option>
+            <option value="whatsapp" data-i18n="contact_whatsapp">WhatsApp</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label data-i18n="lf_comments">Comentarios adicionales</label>
+          <textarea id="lf_comments"></textarea>
+        </div>
+        <div class="form-row" id="lf_row_consent">
+          <div class="checkbox-row">
+            <input type="checkbox" id="lf_consent">
+            <label for="lf_consent" data-i18n="lf_consent">Acepto ser contactado por America Latina Seguros con relación a esta solicitud.</label>
+          </div>
+          <div class="form-error" data-i18n="lf_error_consent">Debes aceptar ser contactado para continuar.</div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeLeadModal()" data-i18n="lf_cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary" data-i18n="lf_submit">Enviar solicitud</button>
+        </div>
+      </form>
+      <div class="confirm-panel" id="leadConfirmPanel" style="display:none;">
+        <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24" style="width:30px;height:30px;"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <p id="leadConfirmText"></p>
+        <button type="button" class="btn btn-primary" onclick="closeLeadModal()" data-i18n="confirm_close">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ADVISOR HANDOVER MODAL ================= -->
+<div class="modal-overlay" id="advisorModalOverlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 data-i18n="af_title">Hablar con un Asesor</h3>
+      <button type="button" onclick="closeAdvisorModal()" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="modal-body" id="advisorModalBody">
+      <p data-i18n="af_intro" style="font-size:13.8px;color:var(--neutral-700);margin-top:0;">Con gusto te conectamos con nuestro equipo de asesores. Este es un prototipo, por lo que ningún mensaje se envía realmente todavía.</p>
+      <div class="contact-box">
+        <div class="contact-line"><svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.2z"/></svg><span>Tel / WhatsApp: +504 8953-7877</span></div>
+        <div class="contact-line"><svg class="icon" viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M4 4h16v16H4V4z"/><path d="M4 6l8 7 8-7"/></svg><span>info@americalatinaseguros.com</span></div>
+      </div>
+      <div class="summary-box" id="advisorSummaryBox"></div>
+      <form id="advisorForm" onsubmit="submitAdvisorForm(event)" novalidate>
+        <div class="form-row" id="af_row_name">
+          <label data-i18n="af_name">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="af_name">
+          <div class="form-error" data-i18n="lf_error_required">Este campo es obligatorio.</div>
+        </div>
+        <div class="form-row">
+          <label data-i18n="af_contact_method">Método de contacto preferido</label>
+          <select id="af_contact_method">
+            <option value="whatsapp" data-i18n="contact_whatsapp">WhatsApp</option>
+            <option value="phone" data-i18n="contact_phone">Llamada telefónica</option>
+            <option value="email" data-i18n="contact_email">Correo electrónico</option>
+          </select>
+        </div>
+        <div class="form-row" id="af_row_contact_value">
+          <label data-i18n="af_contact_value">Teléfono o correo de contacto <span class="req">*</span></label>
+          <input type="text" id="af_contact_value">
+          <div class="form-error" data-i18n="lf_error_required">Este campo es obligatorio.</div>
+        </div>
+        <div class="form-row" id="af_row_consent">
+          <div class="checkbox-row">
+            <input type="checkbox" id="af_consent">
+            <label for="af_consent" data-i18n="af_consent">Acepto que un asesor de America Latina Seguros se comunique conmigo.</label>
+          </div>
+          <div class="form-error" data-i18n="lf_error_consent">Debes aceptar ser contactado para continuar.</div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeAdvisorModal()" data-i18n="lf_cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary" data-i18n="af_submit">Solicitar contacto</button>
+        </div>
+      </form>
+      <div class="confirm-panel" id="advisorConfirmPanel" style="display:none;">
+        <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24" style="width:30px;height:30px;"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <p id="advisorConfirmText"></p>
+        <button type="button" class="btn btn-primary" onclick="closeAdvisorModal()" data-i18n="confirm_close">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   America Latina Seguros — Virtual Assistant POC
+   Demo Mode: fully simulated AI, no backend / no real API calls.
+   All content below is a JS configuration so flows/copy can be
+   updated without touching the engine logic.
+   ============================================================ */
+
+/* ---------------- I18N DICTIONARY ---------------- */
+const I18N = {
+es: {
+  brand_tagline:"Correduría de Seguros",
+  nav_products:"Seguros", nav_demo:"Demostración", nav_contact:"Contacto",
+  nav_talk_assistant:"Hablar con el asistente",
+  hero_badge:"Prototipo con Inteligencia Artificial",
+  hero_title:"Encuentra el seguro adecuado con la ayuda de un asistente virtual",
+  hero_subtitle:"America Latina Seguros te acompaña a entender tus opciones de protección médica, de vida, auto, hogar, viaje y negocio — y a conectarte con un asesor humano cuando lo necesites.",
+  hero_cta_primary:"Iniciar conversación", hero_cta_secondary:"Explorar coberturas",
+  hero_float_1:"Seguro de Vida", hero_float_2:"Seguro de Auto",
+  categories_title:"Explora nuestras coberturas",
+  categories_subtitle:"Selecciona una categoría para que nuestro asistente virtual te explique tus opciones y te haga algunas preguntas rápidas.",
+  cat_explore_btn:"Explorar Cobertura",
+  illustrative_note:"La información mostrada es educativa e ilustrativa. Los nombres de planes, montos y condiciones específicas serán confirmados por un asesor autorizado.",
+  demo_badge:"Modo Demostración – Simulación de IA",
+  demo_title:"Escenarios de demostración",
+  demo_subtitle:"Haz clic en un escenario para ver cómo el asistente conduce automáticamente una conversación completa.",
+  demo_play_btn:"Reproducir escenario", demo_stop_btn:"Detener demostración",
+  demo_running_prefix:"▶ Reproduciendo:",
+  footer_disclaimer:"Este sitio es un prototipo (POC) desarrollado con fines de demostración. El asistente virtual es una simulación de IA y no está conectado a sistemas reales de cotización, emisión de pólizas o comunicación con asesores.",
+  footer_about:"Correduría de seguros ayudando a personas y empresas a proteger lo que más valoran.",
+  footer_contact_title:"Contacto", footer_links_title:"Enlaces", footer_visit_site:"Sitio web oficial",
+  footer_rights:"© 2026 America Latina Seguros. Prototipo interno — no representa un producto en producción.",
+  chat_header_title:"Asistente Virtual ALS", chat_header_status:"En línea (simulado)",
+  demo_mode_strip:"MODO DEMOSTRACIÓN — SIMULACIÓN DE IA, SIN CONEXIÓN REAL",
+  quick_replies_label:"Respuestas rápidas",
+  chat_input_placeholder:"Escribe tu mensaje...",
+  chat_welcome:"¡Hola! Soy tu asistente virtual de America Latina Seguros. Estoy aquí para ayudarte a encontrar opciones de seguros que se adapten a tus necesidades. ¿Qué tipo de protección estás buscando?",
+  restart_message:"He reiniciado nuestra conversación. ¿Qué tipo de protección estás buscando?",
+  choose_category_prompt:"¿Qué tipo de protección estás buscando?",
+  category_intro_prefix:"Perfecto, hablemos de tu",
+  opt_skip:"Omitir esta pregunta", opt_skip_label_past:"(omitida)",
+  opt_advisor:"Hablar con un asesor",
+  opt_yes_connect:"Sí, conectarme", opt_continue_assistant:"Continuar con el asistente",
+  advisor_intent_response:"Con gusto. Puedo conectarte con nuestro equipo de asesores humanos. ¿Deseas que abramos una solicitud de contacto ahora?",
+  summary_intro:"Aquí tienes un resumen de lo que hemos conversado:",
+  summary_category_label:"Categoría",
+  request_quote_prompt:"Con esta información, puedo ayudarte a solicitar una cotización personalizada. Un asesor autorizado confirmará los detalles finales.",
+  btn_request_quote:"Solicitar Cotización", btn_talk_advisor:"Hablar con un Asesor", btn_explore_other:"Explorar otro seguro",
+  unknown_message:"No tengo información específica sobre eso todavía, pero con gusto puedo conectarte con un asesor humano que podrá ayudarte mejor.",
+  unknown_qr_categories:"Ver categorías de seguros",
+  lead_submitted_chat_note:"Tu solicitud de cotización fue registrada en este prototipo. ¡Gracias por tu interés!",
+  advisor_submitted_chat_note:"Tu solicitud de contacto con un asesor fue registrada en este prototipo.",
+  lead_confirm_text:"¡Gracias por contactar a America Latina Seguros! Tu solicitud ha sido registrada en este prototipo. Un asesor podrá revisar tus necesidades y ponerse en contacto contigo una vez que el sistema esté conectado al servicio real.",
+  advisor_confirm_text:"¡Gracias! Hemos registrado tu solicitud de contacto en este prototipo. Un asesor autorizado de America Latina Seguros se pondría en contacto contigo por el medio elegido una vez que el sistema esté conectado al servicio real.",
+  confirm_close:"Cerrar",
+  ai_identity_note:"Recuerda: soy un asistente virtual de IA, no una persona. Para decisiones finales siempre te conectaré con un asesor autorizado.",
+  /* Categories */
+  cat_medical_name:"Seguro Médico", cat_medical_desc:"Cobertura para consultas, hospitalización y tratamientos médicos, según el plan que elijas.",
+  cat_life_name:"Seguro de Vida", cat_life_desc:"Protección financiera para tus seres queridos en caso de fallecimiento o eventos cubiertos.",
+  cat_auto_name:"Seguro de Auto", cat_auto_desc:"Cobertura para daños, robo o responsabilidad civil relacionada con tu vehículo.",
+  cat_home_name:"Seguro de Hogar", cat_home_desc:"Protección para tu vivienda o propiedad frente a incendios, robos y otros riesgos.",
+  cat_travel_name:"Seguro de Viaje", cat_travel_desc:"Asistencia médica y protección durante tus viajes nacionales e internacionales.",
+  cat_business_name:"Seguro Empresarial", cat_business_desc:"Protección para tu negocio, empleados, edificios, inventario y equipo.",
+  cat_transport_name:"Seguro de Transporte", cat_transport_desc:"Cobertura para flotillas, carga y vehículos usados en actividades de transporte.",
+  /* Questions - Medical */
+  q_medical_for_whom:"¿El seguro es para ti o para tu familia?",
+  q_medical_num_people:"¿Cuántas personas necesitan cobertura?",
+  q_medical_budget:"¿Cuál es tu presupuesto mensual preferido?",
+  q_medical_requirements:"¿Tienes algún requisito de cobertura específico (por ejemplo, maternidad, dental o enfermedades preexistentes)?",
+  /* Questions - Life */
+  q_life_for_whom:"¿El seguro es para ti o para otra persona?",
+  q_life_coverage_amount:"¿Qué monto de cobertura prefieres?",
+  q_life_beneficiary:"¿Quién sería el beneficiario?",
+  q_life_budget:"¿Cuál es tu presupuesto preferido?",
+  /* Questions - Auto */
+  q_auto_make_model:"¿Cuál es la marca y modelo del vehículo?",
+  q_auto_year:"¿De qué año es el vehículo?",
+  q_auto_use:"¿El vehículo es para uso personal o comercial?",
+  q_auto_protection:"¿Qué tipo de protección te interesa?",
+  /* Questions - Home */
+  q_home_property_type:"¿La propiedad es una casa, apartamento o edificio comercial?",
+  q_home_ownership:"¿La propiedad es propia o alquilada?",
+  q_home_protection:"¿Qué tipo de protección te interesa?",
+  /* Questions - Travel */
+  q_travel_destination:"¿Cuál es tu destino de viaje?",
+  q_travel_dates:"¿Cuáles son tus fechas de viaje?",
+  q_travel_travelers:"¿Cuántas personas viajan?",
+  q_travel_focus:"¿Te interesa cobertura médica, protección de viaje, o ambas?",
+  /* Questions - Business */
+  q_business_type:"¿Qué tipo de negocio operas?",
+  q_business_employees:"¿Cuántos empleados tienes?",
+  q_business_needs:"¿Necesitas cobertura para vehículos, empleados, edificios, inventario o equipo?",
+  /* Questions - Transportation */
+  q_transport_service_type:"¿Qué tipo de servicio de transporte operas (carga, pasajeros o flotilla)?",
+  q_transport_fleet_size:"¿Cuántas unidades tiene tu flotilla?",
+  q_transport_cargo_pax:"¿Transportas carga, pasajeros, o ambos?",
+  q_transport_focus:"¿Qué tipo de protección te interesa?",
+  /* Chips */
+  chip_for_myself:"Para mí", chip_for_family:"Para mi familia", chip_for_someone_else:"Para otra persona",
+  chip_personal:"Personal", chip_commercial:"Comercial",
+  chip_basic_coverage:"Cobertura básica", chip_full_coverage:"Cobertura amplia", chip_not_sure:"No estoy seguro",
+  chip_house:"Casa", chip_apartment:"Apartamento", chip_commercial_building:"Edificio comercial",
+  chip_owned:"Propia", chip_rented:"Alquilada",
+  chip_fire:"Incendio", chip_theft:"Robo", chip_natural_disaster:"Desastres naturales", chip_comprehensive:"Cobertura integral",
+  chip_medical_coverage:"Cobertura médica", chip_trip_protection:"Protección de viaje", chip_both:"Ambas",
+  chip_vehicles:"Vehículos", chip_employees:"Empleados", chip_buildings:"Edificios", chip_inventory_equipment:"Inventario/Equipo", chip_combination:"Una combinación",
+  chip_cargo:"Carga", chip_passengers:"Pasajeros", chip_both_transport:"Ambos",
+  chip_liability:"Responsabilidad civil", chip_vehicle_damage:"Daños al vehículo", chip_cargo_coverage:"Carga/mercancía",
+  /* FAQ answers */
+  faq_a_medical:"El seguro médico ayuda a cubrir gastos de consultas, hospitalización, cirugías y tratamientos, según el plan contratado. Los detalles exactos de cobertura los confirma un asesor autorizado.",
+  faq_a_life_vs_medical:"El seguro médico cubre gastos de salud mientras estás vivo; el seguro de vida entrega un beneficio económico a tus beneficiarios en caso de fallecimiento u otros eventos cubiertos. Muchas personas contratan ambos porque cumplen propósitos distintos.",
+  faq_a_auto_coverage:"El seguro de auto generalmente puede cubrir daños al vehículo, responsabilidad civil frente a terceros y, según el plan, robo o asistencia vial. La cobertura exacta depende de la aseguradora y el plan elegido.",
+  faq_a_compare:"Sí, como correduría podemos ayudarte a comparar opciones entre distintas aseguradoras según tus necesidades y presupuesto. Un asesor te explicará las diferencias en detalle.",
+  faq_a_how_quote:"Puedes solicitar una cotización aquí mismo: cuéntame qué tipo de seguro te interesa, responde algunas preguntas rápidas y al final podrás enviar tu solicitud con tus datos de contacto.",
+  faq_a_quote_info:"Normalmente se necesita información básica como el tipo de cobertura que buscas, algunos datos personales o del bien a asegurar, y tu presupuesto aproximado. Nunca te pediré contraseñas, datos bancarios ni documentos de identidad completos aquí.",
+  faq_a_talk_advisor:"¡Claro! Puedo conectarte con un asesor humano autorizado. Solo necesito tu nombre, tu forma de contacto preferida y tu autorización para que te contacten.",
+  /* Demo scenarios */
+  scenario1_title:"Seguro médico familiar", scenario1_desc:"Una visitante busca cobertura médica para su familia.",
+  scenario2_title:"Explorando seguro de auto", scenario2_desc:"Un visitante quiere entender qué cubre el seguro de auto.",
+  scenario3_title:"Seguro empresarial", scenario3_desc:"Un dueño de negocio busca cobertura para empleados y activos.",
+  scenario4_title:"Cotización y asesor humano", scenario4_desc:"Un visitante solicita una cotización y pide hablar con un asesor.",
+  /* Lead form */
+  lf_title:"Solicitar una Cotización", lf_name:"Nombre completo", lf_email:"Correo electrónico", lf_phone:"Teléfono",
+  lf_category:"Categoría de seguro", lf_contact_method:"Método de contacto preferido", lf_comments:"Comentarios adicionales",
+  lf_consent:"Acepto ser contactado por America Latina Seguros con relación a esta solicitud.",
+  lf_cancel:"Cancelar", lf_submit:"Enviar solicitud",
+  lf_error_required:"Este campo es obligatorio.", lf_error_email:"Ingresa un correo electrónico válido.", lf_error_consent:"Debes aceptar ser contactado para continuar.",
+  contact_email:"Correo electrónico", contact_phone:"Llamada telefónica", contact_whatsapp:"WhatsApp",
+  /* Advisor form */
+  af_title:"Hablar con un Asesor",
+  af_intro:"Con gusto te conectamos con nuestro equipo de asesores. Este es un prototipo, por lo que ningún mensaje se envía realmente todavía.",
+  af_name:"Nombre completo", af_contact_method:"Método de contacto preferido", af_contact_value:"Teléfono o correo de contacto",
+  af_consent:"Acepto que un asesor de America Latina Seguros se comunique conmigo.", af_submit:"Solicitar contacto",
+  af_summary_title:"Resumen de tu conversación", af_no_summary:"Aún no hemos hablado sobre un tipo de seguro específico."
+},
+en: {
+  brand_tagline:"Insurance Brokerage",
+  nav_products:"Insurance", nav_demo:"Demo", nav_contact:"Contact",
+  nav_talk_assistant:"Talk to the assistant",
+  hero_badge:"AI-Powered Prototype",
+  hero_title:"Find the right insurance with the help of a virtual assistant",
+  hero_subtitle:"America Latina Seguros helps you understand your options for medical, life, auto, home, travel and business protection — and connects you with a human advisor whenever you need one.",
+  hero_cta_primary:"Start a conversation", hero_cta_secondary:"Explore coverage",
+  hero_float_1:"Life Insurance", hero_float_2:"Auto Insurance",
+  categories_title:"Explore our coverage options",
+  categories_subtitle:"Select a category so our virtual assistant can explain your options and ask a few quick questions.",
+  cat_explore_btn:"Explore Coverage",
+  illustrative_note:"The information shown is educational and illustrative. Plan names, amounts and specific conditions will be confirmed by a licensed advisor.",
+  demo_badge:"Demo Mode – AI Simulation",
+  demo_title:"Demonstration scenarios",
+  demo_subtitle:"Click a scenario to watch the assistant automatically walk through a full conversation.",
+  demo_play_btn:"Play scenario", demo_stop_btn:"Stop demo",
+  demo_running_prefix:"▶ Playing:",
+  footer_disclaimer:"This site is a proof-of-concept (POC) built for demonstration purposes. The virtual assistant is an AI simulation and is not connected to real quoting, policy issuance, or advisor communication systems.",
+  footer_about:"An insurance brokerage helping individuals and businesses protect what matters most.",
+  footer_contact_title:"Contact", footer_links_title:"Links", footer_visit_site:"Official website",
+  footer_rights:"© 2026 America Latina Seguros. Internal prototype — does not represent a production product.",
+  chat_header_title:"ALS Virtual Assistant", chat_header_status:"Online (simulated)",
+  demo_mode_strip:"DEMO MODE — AI SIMULATION, NO REAL CONNECTION",
+  quick_replies_label:"Quick replies",
+  chat_input_placeholder:"Type your message...",
+  chat_welcome:"Hi! I'm the America Latina Seguros virtual assistant. I'm here to help you find insurance options that fit your needs. What type of protection are you looking for?",
+  restart_message:"I've restarted our conversation. What type of protection are you looking for?",
+  choose_category_prompt:"What type of protection are you looking for?",
+  category_intro_prefix:"Great, let's talk about your",
+  opt_skip:"Skip this question", opt_skip_label_past:"(skipped)",
+  opt_advisor:"Talk to an advisor",
+  opt_yes_connect:"Yes, connect me", opt_continue_assistant:"Continue with the assistant",
+  advisor_intent_response:"Happy to help. I can connect you with our human advisor team. Would you like to open a contact request now?",
+  summary_intro:"Here's a summary of what we've discussed:",
+  summary_category_label:"Category",
+  request_quote_prompt:"With this information, I can help you request a personalized quote. A licensed advisor will confirm the final details.",
+  btn_request_quote:"Request a Quote", btn_talk_advisor:"Talk to an Advisor", btn_explore_other:"Explore another insurance",
+  unknown_message:"I don't have specific information about that yet, but I'd be happy to connect you with a human advisor who can help further.",
+  unknown_qr_categories:"View insurance categories",
+  lead_submitted_chat_note:"Your quote request was recorded in this prototype. Thanks for your interest!",
+  advisor_submitted_chat_note:"Your advisor contact request was recorded in this prototype.",
+  lead_confirm_text:"Thank you for contacting America Latina Seguros! Your request has been recorded in this prototype. An advisor will be able to review your needs and reach out to you once the system is connected to the real service.",
+  advisor_confirm_text:"Thank you! We've recorded your contact request in this prototype. A licensed America Latina Seguros advisor would reach out to you through your chosen method once the system is connected to the real service.",
+  confirm_close:"Close",
+  ai_identity_note:"Remember: I'm an AI virtual assistant, not a person. For final decisions I'll always connect you with a licensed advisor.",
+  cat_medical_name:"Medical Insurance", cat_medical_desc:"Coverage for consultations, hospitalization and medical treatments, depending on the plan you choose.",
+  cat_life_name:"Life Insurance", cat_life_desc:"Financial protection for your loved ones in case of death or other covered events.",
+  cat_auto_name:"Auto Insurance", cat_auto_desc:"Coverage for damage, theft or liability related to your vehicle.",
+  cat_home_name:"Home Insurance", cat_home_desc:"Protection for your home or property against fire, theft and other risks.",
+  cat_travel_name:"Travel Insurance", cat_travel_desc:"Medical assistance and protection during your domestic and international trips.",
+  cat_business_name:"Business Insurance", cat_business_desc:"Protection for your business, employees, buildings, inventory and equipment.",
+  cat_transport_name:"Transportation Insurance", cat_transport_desc:"Coverage for fleets, cargo and vehicles used in transportation activities.",
+  q_medical_for_whom:"Is the insurance for yourself or your family?",
+  q_medical_num_people:"How many people need coverage?",
+  q_medical_budget:"What is your preferred monthly budget?",
+  q_medical_requirements:"Do you have any specific coverage requirements (for example, maternity, dental, or pre-existing conditions)?",
+  q_life_for_whom:"Is the insurance for yourself or someone else?",
+  q_life_coverage_amount:"What coverage amount would you prefer?",
+  q_life_beneficiary:"Who would be the beneficiary?",
+  q_life_budget:"What is your preferred budget?",
+  q_auto_make_model:"What is the vehicle's make and model?",
+  q_auto_year:"What is the vehicle's year?",
+  q_auto_use:"Is the vehicle used for personal or commercial purposes?",
+  q_auto_protection:"What type of protection are you interested in?",
+  q_home_property_type:"Is the property a house, apartment, or commercial building?",
+  q_home_ownership:"Is the property owned or rented?",
+  q_home_protection:"What type of protection are you interested in?",
+  q_travel_destination:"What is your destination?",
+  q_travel_dates:"What are your travel dates?",
+  q_travel_travelers:"How many people are traveling?",
+  q_travel_focus:"Are you interested in medical coverage, trip protection, or both?",
+  q_business_type:"What type of business do you operate?",
+  q_business_employees:"How many employees do you have?",
+  q_business_needs:"Do you need coverage for vehicles, employees, buildings, inventory or equipment?",
+  q_transport_service_type:"What type of transportation service do you operate (cargo, passengers, or fleet)?",
+  q_transport_fleet_size:"How many units does your fleet have?",
+  q_transport_cargo_pax:"Do you transport cargo, passengers, or both?",
+  q_transport_focus:"What type of protection are you interested in?",
+  chip_for_myself:"For myself", chip_for_family:"For my family", chip_for_someone_else:"For someone else",
+  chip_personal:"Personal", chip_commercial:"Commercial",
+  chip_basic_coverage:"Basic coverage", chip_full_coverage:"Full coverage", chip_not_sure:"Not sure",
+  chip_house:"House", chip_apartment:"Apartment", chip_commercial_building:"Commercial building",
+  chip_owned:"Owned", chip_rented:"Rented",
+  chip_fire:"Fire", chip_theft:"Theft", chip_natural_disaster:"Natural disasters", chip_comprehensive:"Comprehensive coverage",
+  chip_medical_coverage:"Medical coverage", chip_trip_protection:"Trip protection", chip_both:"Both",
+  chip_vehicles:"Vehicles", chip_employees:"Employees", chip_buildings:"Buildings", chip_inventory_equipment:"Inventory/Equipment", chip_combination:"A combination",
+  chip_cargo:"Cargo", chip_passengers:"Passengers", chip_both_transport:"Both",
+  chip_liability:"Liability", chip_vehicle_damage:"Vehicle damage", chip_cargo_coverage:"Cargo/goods",
+  faq_a_medical:"Medical insurance helps cover costs for consultations, hospitalization, surgeries and treatments, depending on the plan. Exact coverage details are confirmed by a licensed advisor.",
+  faq_a_life_vs_medical:"Medical insurance covers healthcare costs while you're alive; life insurance pays a financial benefit to your beneficiaries in case of death or other covered events. Many people carry both because they serve different purposes.",
+  faq_a_auto_coverage:"Auto insurance can generally cover vehicle damage, liability to third parties and, depending on the plan, theft or roadside assistance. Exact coverage depends on the insurer and plan chosen.",
+  faq_a_compare:"Yes, as a brokerage we can help you compare options across different insurers based on your needs and budget. An advisor will walk you through the differences in detail.",
+  faq_a_how_quote:"You can request a quote right here: tell me which type of insurance you're interested in, answer a few quick questions, and at the end you can submit your request with your contact details.",
+  faq_a_quote_info:"Typically we need basic information like the type of coverage you're looking for, some details about yourself or the asset to insure, and your approximate budget. I will never ask for passwords, bank details, or full ID numbers here.",
+  faq_a_talk_advisor:"Of course! I can connect you with a licensed human advisor. I just need your name, your preferred contact method, and your consent to be contacted.",
+  scenario1_title:"Family medical insurance", scenario1_desc:"A visitor is looking for medical coverage for their family.",
+  scenario2_title:"Exploring auto insurance", scenario2_desc:"A visitor wants to understand what auto insurance covers.",
+  scenario3_title:"Business insurance", scenario3_desc:"A business owner is looking for employee and asset coverage.",
+  scenario4_title:"Quote & human advisor", scenario4_desc:"A visitor requests a quote and asks to speak with an advisor.",
+  lf_title:"Request a Quote", lf_name:"Full name", lf_email:"Email address", lf_phone:"Phone number",
+  lf_category:"Insurance category", lf_contact_method:"Preferred contact method", lf_comments:"Additional comments",
+  lf_consent:"I agree to be contacted by America Latina Seguros regarding this request.",
+  lf_cancel:"Cancel", lf_submit:"Submit request",
+  lf_error_required:"This field is required.", lf_error_email:"Please enter a valid email address.", lf_error_consent:"You must agree to be contacted to continue.",
+  contact_email:"Email", contact_phone:"Phone call", contact_whatsapp:"WhatsApp",
+  af_title:"Talk to an Advisor",
+  af_intro:"We're happy to connect you with our advisor team. This is a prototype, so no message is actually sent yet.",
+  af_name:"Full name", af_contact_method:"Preferred contact method", af_contact_value:"Phone or email to reach you",
+  af_consent:"I agree that an America Latina Seguros advisor may contact me.", af_submit:"Request contact",
+  af_summary_title:"Conversation summary", af_no_summary:"We haven't discussed a specific insurance type yet."
+}
+};
+
+let state = {
+  lang:'en',
+  category:null,
+  stepIndex:0,
+  answers:{},
+  awaitingQuestion:false,
+  chatOpened:false,
+  demoToken:null
+};
+
+function t(key){
+  const dict = I18N[state.lang] || I18N.es;
+  return dict[key] !== undefined ? dict[key] : key;
+}
+
+/* ---------------- ICONS ---------------- */
+const ICONS = {
+  medical:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+  life:'<path d="M12 21s-7-4.35-9.5-9C.6 8.5 3 4.5 7 4.5c2 0 3.5 1 5 2.8 1.5-1.8 3-2.8 5-2.8 4 0 6.4 4 4.5 7.5C19 16.65 12 21 12 21z"/>',
+  auto:'<path d="M3 13l1.5-5A2 2 0 0 1 6.4 6.5h11.2A2 2 0 0 1 19.5 8L21 13v6h-2v-2H5v2H3v-6z"/><circle cx="7" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/>',
+  home:'<path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/>',
+  travel:'<path d="M3 11l18-8-8 18-2-8-8-2z"/>',
+  business:'<path d="M4 9h16v10H4z"/><path d="M9 9V6a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v3"/>',
+  transport:'<path d="M3 16V7h9v9"/><path d="M12 10h4l3 3v3h-2"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',
+  advisor:'<circle cx="12" cy="8" r="3.2"/><path d="M5 20c1-3.5 4-5.5 7-5.5s6 2 7 5.5"/>',
+  bot:'<rect x="4" y="7" width="16" height="12" rx="3"/><path d="M9 3v4M15 3v4"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/>',
+  user:'<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.2-4 4.2-6 7.5-6s6.3 2 7.5 6"/>'
+};
+function iconSvg(name, size){
+  size = size || 24;
+  return '<svg class="icon" viewBox="0 0 24 24" style="width:'+size+'px;height:'+size+'px;">'+(ICONS[name]||'')+'</svg>';
+}
+
+/* ---------------- CATEGORY + FLOW CONFIG ---------------- */
+const CATEGORIES = [
+  {id:'medical', icon:'medical', nameKey:'cat_medical_name', descKey:'cat_medical_desc', topLevel:true},
+  {id:'life', icon:'life', nameKey:'cat_life_name', descKey:'cat_life_desc', topLevel:true},
+  {id:'auto', icon:'auto', nameKey:'cat_auto_name', descKey:'cat_auto_desc', topLevel:true},
+  {id:'home', icon:'home', nameKey:'cat_home_name', descKey:'cat_home_desc', topLevel:true},
+  {id:'travel', icon:'travel', nameKey:'cat_travel_name', descKey:'cat_travel_desc', topLevel:true},
+  {id:'business', icon:'business', nameKey:'cat_business_name', descKey:'cat_business_desc', topLevel:true},
+  {id:'transportation', icon:'transport', nameKey:'cat_transport_name', descKey:'cat_transport_desc', topLevel:false}
+];
+
+const FLOW_QUESTIONS = {
+  medical:[
+    {id:'for_whom', textKey:'q_medical_for_whom', chipKeys:['chip_for_myself','chip_for_family']},
+    {id:'num_people', textKey:'q_medical_num_people'},
+    {id:'budget', textKey:'q_medical_budget'},
+    {id:'requirements', textKey:'q_medical_requirements'}
+  ],
+  life:[
+    {id:'for_whom', textKey:'q_life_for_whom', chipKeys:['chip_for_myself','chip_for_someone_else']},
+    {id:'coverage_amount', textKey:'q_life_coverage_amount'},
+    {id:'beneficiary', textKey:'q_life_beneficiary'},
+    {id:'budget', textKey:'q_life_budget'}
+  ],
+  auto:[
+    {id:'make_model', textKey:'q_auto_make_model'},
+    {id:'year', textKey:'q_auto_year'},
+    {id:'use', textKey:'q_auto_use', chipKeys:['chip_personal','chip_commercial']},
+    {id:'protection', textKey:'q_auto_protection', chipKeys:['chip_basic_coverage','chip_full_coverage','chip_not_sure']}
+  ],
+  home:[
+    {id:'property_type', textKey:'q_home_property_type', chipKeys:['chip_house','chip_apartment','chip_commercial_building']},
+    {id:'ownership', textKey:'q_home_ownership', chipKeys:['chip_owned','chip_rented']},
+    {id:'protection', textKey:'q_home_protection', chipKeys:['chip_fire','chip_theft','chip_natural_disaster','chip_comprehensive']}
+  ],
+  travel:[
+    {id:'destination', textKey:'q_travel_destination'},
+    {id:'dates', textKey:'q_travel_dates'},
+    {id:'travelers', textKey:'q_travel_travelers'},
+    {id:'focus', textKey:'q_travel_focus', chipKeys:['chip_medical_coverage','chip_trip_protection','chip_both']}
+  ],
+  business:[
+    {id:'business_type', textKey:'q_business_type'},
+    {id:'employees', textKey:'q_business_employees'},
+    {id:'needs', textKey:'q_business_needs', chipKeys:['chip_vehicles','chip_employees','chip_buildings','chip_inventory_equipment','chip_combination']}
+  ],
+  transportation:[
+    {id:'service_type', textKey:'q_transport_service_type'},
+    {id:'fleet_size', textKey:'q_transport_fleet_size'},
+    {id:'cargo_pax', textKey:'q_transport_cargo_pax', chipKeys:['chip_cargo','chip_passengers','chip_both_transport']},
+    {id:'focus', textKey:'q_transport_focus', chipKeys:['chip_liability','chip_vehicle_damage','chip_cargo_coverage','chip_comprehensive']}
+  ]
+};
+
+const CATEGORY_KEYWORDS = {
+  medical:['seguro medico','seguro de salud','medical insurance','health insurance',' medico',' salud'],
+  life:['seguro de vida','de vida','life insurance'],
+  auto:['seguro de auto','de auto','auto insurance','vehiculo','carro','car insurance'],
+  home:['seguro de hogar','de hogar','home insurance','casa seguro','vivienda'],
+  travel:['seguro de viaje','de viaje','travel insurance','viaje'],
+  business:['seguro empresarial','empresarial','business insurance','negocio'],
+  transportation:['seguro de transporte','transporte','flotilla','transportation insurance','fleet']
+};
+
+const ADVISOR_INTENT_KEYWORDS = ['asesor','advisor','humano','human','representante','persona real','agente','hablar con alguien'];
+
+const FAQ_LIST = [
+  {keywords:['que es un seguro medico','que es el seguro medico','seguro medico que es','que es seguro medico','what is medical insurance'], answerKey:'faq_a_medical'},
+  {keywords:['diferencia entre seguro de vida y seguro medico','diferencia entre vida y medico','difference between life and medical'], answerKey:'faq_a_life_vs_medical'},
+  {keywords:['que cubre el seguro de auto','que cubre seguro de auto','cobertura del seguro de auto','what does auto insurance cover'], answerKey:'faq_a_auto_coverage'},
+  {keywords:['comparar aseguradoras','comparar companias de seguros','puedo comparar seguros','comparar planes','compare insurance companies'], answerKey:'faq_a_compare'},
+  {keywords:['como solicito una cotizacion','como pido una cotizacion','como solicitar una cotizacion','como obtengo una cotizacion','how can i request a quote'], answerKey:'faq_a_how_quote'},
+  {keywords:['que informacion necesito para cotizar','informacion para una cotizacion','que datos necesito para una cotizacion','what information is required for a quote'], answerKey:'faq_a_quote_info'},
+  {keywords:['puedo hablar con un asesor de seguros','hablar con un asesor de seguros','can i speak with an insurance advisor'], answerKey:'faq_a_talk_advisor'}
+];
+
+function normalizeText(str){
+  return (str||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
+}
+
+/* ---------------- RENDER: STATIC I18N ---------------- */
+function renderStaticI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+    el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+  });
+  document.documentElement.setAttribute('lang', state.lang);
+  document.documentElement.setAttribute('data-lang', state.lang);
+}
+
+function setLanguage(lang){
+  state.lang = lang;
+  document.getElementById('langEsBtn').classList.toggle('active', lang==='es');
+  document.getElementById('langEnBtn').classList.toggle('active', lang==='en');
+  renderStaticI18n();
+  renderCategoryCards();
+  renderDemoCards();
+  if(document.getElementById('lf_category')) populateCategorySelect(document.getElementById('lf_category'));
+}
+
+/* ---------------- RENDER: CATEGORY CARDS ---------------- */
+function renderCategoryCards(){
+  const grid = document.getElementById('categoriesGrid');
+  grid.innerHTML = CATEGORIES.map(function(c){
+    return '<div class="cat-card">'
+      + '<div class="cat-icon">'+iconSvg(c.icon,26)+'</div>'
+      + '<h3>'+t(c.nameKey)+'</h3>'
+      + '<p>'+t(c.descKey)+'</p>'
+      + '<button type="button" class="btn btn-outline btn-sm" onclick="exploreCategoryFromCard(\''+c.id+'\')">'
+      + iconSvg('bot',16) + '<span>'+t('cat_explore_btn')+'</span></button>'
+      + '</div>';
+  }).join('');
+}
+function exploreCategoryFromCard(catId){
+  openChat();
+  setTimeout(function(){ startCategoryFlow(catId); }, 250);
+}
+
+/* ---------------- RENDER: DEMO SCENARIO CARDS ---------------- */
+const SCENARIOS = [
+  {id:'s1', titleKey:'scenario1_title', descKey:'scenario1_desc'},
+  {id:'s2', titleKey:'scenario2_title', descKey:'scenario2_desc'},
+  {id:'s3', titleKey:'scenario3_title', descKey:'scenario3_desc'},
+  {id:'s4', titleKey:'scenario4_title', descKey:'scenario4_desc'}
+];
+function renderDemoCards(){
+  const grid = document.getElementById('demoGrid');
+  grid.innerHTML = SCENARIOS.map(function(s, idx){
+    return '<div class="demo-card">'
+      + '<h4><span class="demo-num">'+(idx+1)+'</span>'+t(s.titleKey)+'</h4>'
+      + '<p>'+t(s.descKey)+'</p>'
+      + '<button type="button" class="btn btn-primary btn-sm" onclick="playScenario(\''+s.id+'\')">'
+      + iconSvg('bot',15) + '<span>'+t('demo_play_btn')+'</span></button>'
+      + '</div>';
+  }).join('');
+}
+
+/* ---------------- CHAT WINDOW CONTROLS ---------------- */
+function toggleChat(){
+  const win = document.getElementById('chatWindow');
+  if(win.classList.contains('open')){ closeChat(); } else { openChat(); }
+}
+function openChat(){
+  const win = document.getElementById('chatWindow');
+  win.classList.remove('minimized');
+  win.classList.add('open');
+  if(!state.chatOpened){
+    state.chatOpened = true;
+    initialGreeting();
+  }
+}
+function closeChat(){
+  document.getElementById('chatWindow').classList.remove('open');
+}
+function minimizeChat(){
+  document.getElementById('chatWindow').classList.toggle('minimized');
+}
+function restartConversation(){
+  state.category = null;
+  state.stepIndex = 0;
+  state.answers = {};
+  state.awaitingQuestion = false;
+  document.getElementById('chatBody').innerHTML = '';
+  addMessage('bot', t('restart_message'));
+  showInitialQuickReplies();
+}
+
+/* ---------------- MESSAGE RENDERING ---------------- */
+function scrollChatToBottom(){
+  const body = document.getElementById('chatBody');
+  body.scrollTop = body.scrollHeight + 200;
+}
+function addMessage(sender, text){
+  const body = document.getElementById('chatBody');
+  const row = document.createElement('div');
+  row.className = 'msg-row ' + (sender==='user' ? 'user' : 'bot');
+  const time = new Date().toLocaleTimeString(state.lang==='es'?'es-HN':'en-US', {hour:'2-digit', minute:'2-digit'});
+  row.innerHTML = '<div class="msg-avatar">'+iconSvg(sender==='user'?'user':'bot',15)+'</div>'
+    + '<div><div class="bubble"></div><div class="msg-time">'+time+'</div></div>';
+  row.querySelector('.bubble').textContent = text;
+  body.appendChild(row);
+  scrollChatToBottom();
+  return row;
+}
+function showTyping(){
+  const body = document.getElementById('chatBody');
+  const row = document.createElement('div');
+  row.className = 'msg-row bot typing-row';
+  row.id = 'typingRow';
+  row.innerHTML = '<div class="msg-avatar">'+iconSvg('bot',15)+'</div>'
+    + '<div class="bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>';
+  body.appendChild(row);
+  scrollChatToBottom();
+}
+function removeTyping(){
+  const row = document.getElementById('typingRow');
+  if(row) row.remove();
+}
+
+/* ---------------- QUICK REPLIES ---------------- */
+function setQuickReplies(items){
+  const wrap = document.getElementById('quickRepliesWrap');
+  const box = document.getElementById('quickReplies');
+  if(!items || !items.length){ wrap.style.display='none'; box.innerHTML=''; return; }
+  wrap.style.display = 'block';
+  box.innerHTML = '';
+  items.forEach(function(item){
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'qr-btn' + (item.variant ? ' '+item.variant : '');
+    btn.textContent = item.label;
+    btn.onclick = item.onClick;
+    box.appendChild(btn);
+  });
+}
+function clearQuickReplies(){ setQuickReplies([]); }
+
+/* ---------------- INITIAL GREETING ---------------- */
+function initialGreeting(){
+  addMessage('bot', t('chat_welcome'));
+  showInitialQuickReplies();
+}
+function showInitialQuickReplies(){
+  const items = CATEGORIES.filter(function(c){ return c.topLevel; }).map(function(c){
+    return {label:t(c.nameKey), onClick:function(){ addMessage('user', t(c.nameKey)); startCategoryFlow(c.id); }};
+  });
+  items.push({label:t('opt_advisor'), variant:'advisor', onClick:function(){ addMessage('user', t('opt_advisor')); respondAdvisorIntent(true); }});
+  setQuickReplies(items);
+}
+
+/* ---------------- SEND / PROCESS USER INPUT ---------------- */
+function handleSendClick(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage('user', text);
+  input.value = '';
+  clearQuickReplies();
+  processUserInput(text);
+}
+
+function processUserInput(rawText){
+  const norm = normalizeText(rawText);
+
+  const advisorHit = ADVISOR_INTENT_KEYWORDS.some(function(k){ return norm.includes(normalizeText(k)); });
+  if(advisorHit){ respondAdvisorIntent(false); return; }
+
+  let matchedCategory = null;
+  Object.keys(CATEGORY_KEYWORDS).forEach(function(catId){
+    if(matchedCategory) return;
+    if(CATEGORY_KEYWORDS[catId].some(function(k){ return norm.includes(normalizeText(k)); })){
+      matchedCategory = catId;
+    }
+  });
+  if(matchedCategory && (!state.awaitingQuestion || matchedCategory !== state.category)){
+    startCategoryFlow(matchedCategory);
+    return;
+  }
+
+  const faqHit = FAQ_LIST.find(function(item){
+    return item.keywords.some(function(k){ return norm.includes(normalizeText(k)); });
+  });
+  if(faqHit){
+    showTyping();
+    setTimeout(function(){
+      removeTyping();
+      addMessage('bot', t(faqHit.answerKey));
+      setQuickReplies([
+        {label:t('unknown_qr_categories'), onClick:function(){ addMessage('user', t('unknown_qr_categories')); showInitialQuickReplies(); }},
+        {label:t('opt_advisor'), variant:'advisor', onClick:function(){ addMessage('user', t('opt_advisor')); respondAdvisorIntent(true); }}
+      ]);
+    }, 600);
+    return;
+  }
+
+  if(state.category && state.awaitingQuestion){
+    recordAnswerAndAdvance(rawText);
+    return;
+  }
+
+  showTyping();
+  setTimeout(function(){
+    removeTyping();
+    addMessage('bot', t('unknown_message'));
+    setQuickReplies([
+      {label:t('unknown_qr_categories'), onClick:function(){ addMessage('user', t('unknown_qr_categories')); showInitialQuickReplies(); }},
+      {label:t('opt_advisor'), variant:'advisor', onClick:function(){ addMessage('user', t('opt_advisor')); respondAdvisorIntent(true); }}
+    ]);
+  }, 600);
+}
+
+/* ---------------- CONVERSATION FLOW ENGINE ---------------- */
+function startCategoryFlow(catId){
+  state.category = catId;
+  state.stepIndex = 0;
+  state.answers = {};
+  state.awaitingQuestion = false;
+  const cat = CATEGORIES.find(function(c){ return c.id===catId; });
+  clearQuickReplies();
+  showTyping();
+  setTimeout(function(){
+    removeTyping();
+    addMessage('bot', t('category_intro_prefix')+' '+t(cat.nameKey).toLowerCase()+'. '+t(cat.descKey));
+    askQuestionAtIndex();
+  }, 500);
+}
+
+function askQuestionAtIndex(){
+  const questions = FLOW_QUESTIONS[state.category];
+  const q = questions[state.stepIndex];
+  state.awaitingQuestion = true;
+  showTyping();
+  setTimeout(function(){
+    removeTyping();
+    addMessage('bot', t(q.textKey));
+    const replies = [];
+    if(q.chipKeys){
+      q.chipKeys.forEach(function(ck){
+        replies.push({label:t(ck), onClick:function(){ addMessage('user', t(ck)); recordAnswerAndAdvance(t(ck)); }});
+      });
+    }
+    replies.push({label:t('opt_skip'), variant:'subtle', onClick:function(){ addMessage('user', t('opt_skip')); recordAnswerAndAdvance(null); }});
+    replies.push({label:t('opt_advisor'), variant:'advisor', onClick:function(){ addMessage('user', t('opt_advisor')); respondAdvisorIntent(true); }});
+    setQuickReplies(replies);
+  }, 550);
+}
+
+function recordAnswerAndAdvance(value){
+  const questions = FLOW_QUESTIONS[state.category];
+  const q = questions[state.stepIndex];
+  state.answers[q.id] = value;
+  state.stepIndex++;
+  clearQuickReplies();
+  if(state.stepIndex < questions.length){
+    askQuestionAtIndex();
+  } else {
+    state.awaitingQuestion = false;
+    finishFlow();
+  }
+}
+
+function buildSummaryText(){
+  if(!state.category) return t('af_no_summary');
+  const cat = CATEGORIES.find(function(c){ return c.id===state.category; });
+  const questions = FLOW_QUESTIONS[state.category];
+  const lines = [t('summary_category_label')+': '+t(cat.nameKey)];
+  questions.forEach(function(q){
+    const ans = state.answers[q.id];
+    if(ans !== undefined){
+      lines.push('• '+t(q.textKey)+' → '+(ans===null ? t('opt_skip_label_past') : ans));
+    }
+  });
+  return lines.join('\n');
+}
+
+function finishFlow(){
+  showTyping();
+  setTimeout(function(){
+    removeTyping();
+    addMessage('bot', t('summary_intro'));
+    addMessage('bot', buildSummaryText());
+    setTimeout(function(){
+      addMessage('bot', t('request_quote_prompt'));
+      setQuickReplies([
+        {label:t('btn_request_quote'), variant:'action', onClick:function(){ openLeadModal(); }},
+        {label:t('btn_talk_advisor'), variant:'advisor', onClick:function(){ respondAdvisorIntent(true); }},
+        {label:t('btn_explore_other'), variant:'subtle', onClick:function(){ addMessage('user', t('btn_explore_other')); showInitialQuickReplies(); }}
+      ]);
+    }, 500);
+  }, 500);
+}
+
+function respondAdvisorIntent(direct){
+  if(direct){ openAdvisorModal(); return; }
+  showTyping();
+  setTimeout(function(){
+    removeTyping();
+    addMessage('bot', t('advisor_intent_response'));
+    setQuickReplies([
+      {label:t('opt_yes_connect'), variant:'action', onClick:function(){ addMessage('user', t('opt_yes_connect')); openAdvisorModal(); }},
+      {label:t('opt_continue_assistant'), variant:'subtle', onClick:function(){
+        addMessage('user', t('opt_continue_assistant'));
+        clearQuickReplies();
+        if(state.awaitingQuestion){ askQuestionAtIndex(); } else { showInitialQuickReplies(); }
+      }}
+    ]);
+  }, 500);
+}
+
+/* ---------------- LEAD FORM (QUOTE REQUEST) ---------------- */
+function populateCategorySelect(selectEl){
+  const current = selectEl.value;
+  selectEl.innerHTML = CATEGORIES.map(function(c){ return '<option value="'+c.id+'">'+t(c.nameKey)+'</option>'; }).join('');
+  selectEl.value = state.category || current || CATEGORIES[0].id;
+}
+function summarizeAnswersForComments(){
+  if(!state.category) return '';
+  const questions = FLOW_QUESTIONS[state.category];
+  return questions.map(function(q){
+    const ans = state.answers[q.id];
+    return (ans && ans!==null) ? (t(q.textKey)+' '+ans) : null;
+  }).filter(Boolean).join(' | ');
+}
+function openLeadModal(){
+  document.getElementById('leadForm').style.display = 'block';
+  document.getElementById('leadConfirmPanel').style.display = 'none';
+  populateCategorySelect(document.getElementById('lf_category'));
+  document.getElementById('lf_comments').value = summarizeAnswersForComments();
+  ['lf_row_name','lf_row_email','lf_row_phone','lf_row_consent'].forEach(function(id){ document.getElementById(id).classList.remove('invalid'); });
+  document.getElementById('leadModalOverlay').classList.add('open');
+}
+function closeLeadModal(){
+  document.getElementById('leadModalOverlay').classList.remove('open');
+}
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function submitLeadForm(e){
+  e.preventDefault();
+  let valid = true;
+  const name = document.getElementById('lf_name').value.trim();
+  const email = document.getElementById('lf_email').value.trim();
+  const phone = document.getElementById('lf_phone').value.trim();
+  const consent = document.getElementById('lf_consent').checked;
+  toggleRowValidity('lf_row_name', !!name);
+  toggleRowValidity('lf_row_email', isValidEmail(email));
+  toggleRowValidity('lf_row_phone', phone.length >= 6);
+  toggleRowValidity('lf_row_consent', consent);
+  valid = !!name && isValidEmail(email) && phone.length>=6 && consent;
+  if(!valid) return;
+  document.getElementById('leadForm').style.display = 'none';
+  document.getElementById('leadConfirmText').textContent = t('lead_confirm_text');
+  document.getElementById('leadConfirmPanel').style.display = 'block';
+  if(state.chatOpened){ addMessage('bot', t('lead_submitted_chat_note')); }
+}
+function toggleRowValidity(rowId, isValid){
+  const row = document.getElementById(rowId);
+  if(!row) return;
+  row.classList.toggle('invalid', !isValid);
+}
+
+/* ---------------- ADVISOR HANDOVER FORM ---------------- */
+function openAdvisorModal(){
+  document.getElementById('advisorForm').style.display = 'block';
+  document.getElementById('advisorConfirmPanel').style.display = 'none';
+  document.getElementById('advisorSummaryBox').textContent = t('af_summary_title')+'\n'+buildSummaryText();
+  ['af_row_name','af_row_contact_value','af_row_consent'].forEach(function(id){ document.getElementById(id).classList.remove('invalid'); });
+  document.getElementById('advisorModalOverlay').classList.add('open');
+}
+function closeAdvisorModal(){
+  document.getElementById('advisorModalOverlay').classList.remove('open');
+}
+function submitAdvisorForm(e){
+  e.preventDefault();
+  const name = document.getElementById('af_name').value.trim();
+  const contactValue = document.getElementById('af_contact_value').value.trim();
+  const consent = document.getElementById('af_consent').checked;
+  toggleRowValidity('af_row_name', !!name);
+  toggleRowValidity('af_row_contact_value', !!contactValue);
+  toggleRowValidity('af_row_consent', consent);
+  const valid = !!name && !!contactValue && consent;
+  if(!valid) return;
+  document.getElementById('advisorForm').style.display = 'none';
+  document.getElementById('advisorConfirmText').textContent = t('advisor_confirm_text');
+  document.getElementById('advisorConfirmPanel').style.display = 'block';
+  if(state.chatOpened){ addMessage('bot', t('advisor_submitted_chat_note')); }
+}
+
+/* ---------------- DEMO SCENARIO AUTO-PLAY ---------------- */
+const SCENARIO_SCRIPTS = {
+  s1:{ category:'medical',
+    steps:[
+      {chip:'chip_for_family'},
+      {text:function(){ return state.lang==='es' ? '4 personas' : '4 people'; }},
+      {text:function(){ return state.lang==='es' ? 'alrededor de 150 USD al mes' : 'around 150 USD per month'; }},
+      {text:function(){ return state.lang==='es' ? 'Nos interesa cobertura de maternidad y dental' : "We'd like maternity and dental coverage"; }}
+    ],
+    lead:{name:'María Fernanda López', email:'maria.lopez@example.com', phone:'+504 9988-1122', contactMethod:'whatsapp'}
+  },
+  s2:{ category:'auto',
+    steps:[
+      {text:function(){ return state.lang==='es' ? 'Toyota Corolla' : 'Toyota Corolla'; }},
+      {text:function(){ return '2021'; }},
+      {chip:'chip_personal'},
+      {chip:'chip_full_coverage'}
+    ],
+    lead:{name:'Carlos Mendoza', email:'carlos.mendoza@example.com', phone:'+504 9911-3344', contactMethod:'phone'}
+  },
+  s3:{ category:'business',
+    steps:[
+      {text:function(){ return state.lang==='es' ? 'Restaurante con dos sucursales' : 'A restaurant with two locations'; }},
+      {text:function(){ return '18'; }},
+      {chip:'chip_combination'}
+    ],
+    lead:{name:'Ana Beatriz Reyes', email:'ana.reyes@example.com', phone:'+504 9922-5566', contactMethod:'email'}
+  },
+  s4:{ category:'home',
+    steps:[
+      {chip:'chip_house'},
+      {chip:'chip_owned'},
+      {chip:'chip_comprehensive'}
+    ],
+    lead:{name:'Jorge Ramírez', email:'jorge.ramirez@example.com', phone:'+504 9933-7788', contactMethod:'whatsapp'},
+    alsoAdvisor:true
+  }
+};
+
+function setDemoRunningUI(running, titleKey){
+  const strip = document.getElementById('demoModeStrip');
+  if(running){
+    strip.innerHTML = t('demo_running_prefix')+' '+t(titleKey)+'  &nbsp;·&nbsp; <a href="#" onclick="stopDemo();return false;" style="color:#8a6300;text-decoration:underline;">'+t('demo_stop_btn')+'</a>';
+    document.getElementById('chatInput').disabled = true;
+  } else {
+    strip.textContent = t('demo_mode_strip');
+    document.getElementById('chatInput').disabled = false;
+  }
+}
+
+function stopDemo(){
+  state.demoToken = null;
+  setDemoRunningUI(false);
+}
+
+function playScenario(scenarioId){
+  const script = SCENARIO_SCRIPTS[scenarioId];
+  const scenarioMeta = SCENARIOS.find(function(s){ return s.id===scenarioId; });
+  if(!script) return;
+  const myToken = {};
+  state.demoToken = myToken;
+  openChat();
+  restartConversation();
+  setDemoRunningUI(true, scenarioMeta.titleKey);
+
+  let delay = 600;
+  const stepGap = 1000;
+
+  function schedule(fn, extraDelay){
+    delay += (extraDelay || stepGap);
+    setTimeout(function(){
+      if(state.demoToken !== myToken) return;
+      fn();
+    }, delay);
+  }
+
+  schedule(function(){
+    addMessage('user', t(CATEGORIES.find(function(c){return c.id===script.category;}).nameKey));
+    startCategoryFlow(script.category);
+  }, 400);
+
+  script.steps.forEach(function(step){
+    schedule(function(){
+      if(step.chip){
+        const label = t(step.chip);
+        addMessage('user', label);
+        recordAnswerAndAdvance(label);
+      } else if(step.text){
+        const val = step.text();
+        addMessage('user', val);
+        clearQuickReplies();
+        recordAnswerAndAdvance(val);
+      }
+    }, 1300);
+  });
+
+  schedule(function(){
+    openLeadModal();
+    document.getElementById('lf_name').value = script.lead.name;
+    document.getElementById('lf_email').value = script.lead.email;
+    document.getElementById('lf_phone').value = script.lead.phone;
+    document.getElementById('lf_contact_method').value = script.lead.contactMethod;
+    document.getElementById('lf_consent').checked = true;
+  }, 1400);
+
+  schedule(function(){
+    submitLeadForm({preventDefault:function(){}});
+  }, 1300);
+
+  if(script.alsoAdvisor){
+    schedule(function(){
+      closeLeadModal();
+      openAdvisorModal();
+      document.getElementById('af_name').value = script.lead.name;
+      document.getElementById('af_contact_method').value = script.lead.contactMethod;
+      document.getElementById('af_contact_value').value = script.lead.phone;
+      document.getElementById('af_consent').checked = true;
+    }, 1300);
+    schedule(function(){
+      submitAdvisorForm({preventDefault:function(){}});
+    }, 1300);
+  }
+
+  schedule(function(){
+    setDemoRunningUI(false);
+  }, 1200);
+}
+
+/* ---------------- INIT ---------------- */
+document.addEventListener('DOMContentLoaded', function(){
+  renderStaticI18n();
+  renderCategoryCards();
+  renderDemoCards();
+});
+</script>
+</body>
+</html>
